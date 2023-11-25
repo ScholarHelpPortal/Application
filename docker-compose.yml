@@ -1,0 +1,31 @@
+version: '3.8'
+services:
+  backend:
+    container_name: backend
+    restart: unless-stopped
+    image: mybackend:1.1.1
+    build: 
+      context: backend
+      dockerfile: Dockerfile
+    ports:
+      - 4000:4000
+    networks:
+      - test_devops
+  
+  frontend:
+    container_name: frontend
+    restart: unless-stopped
+    image: myfrontend:2.2.2
+    build: 
+      context: UI
+      dockerfile: Dockerfile
+    ports:
+      - 3000:3000
+    networks:
+      - test_devops
+    depends_on:
+      - backend
+
+networks:
+  test_devops:
+    driver: bridge
