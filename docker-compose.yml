@@ -3,19 +3,21 @@ services:
   backend:
     container_name: backend
     restart: unless-stopped
-    image: mybackend:1.1.1
+    image: mybackend
     build: 
       context: backend
       dockerfile: Dockerfile
     ports:
       - 4000:4000
+    volumes:
+      - ./backend/data:/usr/src/backend/data
     networks:
       - test_devops
   
   frontend:
     container_name: frontend
     restart: unless-stopped
-    image: myfrontend:2.2.2
+    image: myfrontend
     build: 
       context: UI
       dockerfile: Dockerfile
